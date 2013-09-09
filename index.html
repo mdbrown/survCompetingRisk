@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="SurvCompetingRisk : evaluate the prognostic accuracy of a marker with multiple competing risk events" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>SurvCompetingRisk</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/mdbrown/survCompetingRisk">View on GitHub</a>
+
+          <h1 id="project_title">SurvCompetingRisk</h1>
+          <h2 id="project_tagline">evaluate the prognostic accuracy of a marker with multiple competing risk events</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/mdbrown/survCompetingRisk/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/mdbrown/survCompetingRisk/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <p>This package aims to help to evaluate the prognostic accuracy of a marker with multiple competing risk events. Functions to calculate the AUC, ROC, PPV, and NPV are provided. A discrete covariate Z, if available, can be included.</p>
+
+<p>There are five main functions in this package:</p>
+
+<ol>
+<li><p><code>comprisk.ROC</code>: Calculate the values needed to plot the ROC curve, along with the AUC.</p></li>
+<li><p><code>comprisk.ROC.CI</code>: Calculate bootstrap confidence intervals for a given set of TPR or FPR values.</p></li>
+<li><p><code>comprisk.AUC.CI</code>: Calculate bootstrap confidence intervals for the AUC.</p></li>
+<li><p><code>comprisk.PPV</code>: Calculate PPV and NPV values.</p></li>
+<li><p><code>comprisk.PPV.CI</code>: Calculate bootstrap confidence intervals for a given set of PPV, NPV, or v (marker quantile).</p></li>
+</ol><h3>
+<a name="examples" class="anchor" href="#examples"><span class="octicon octicon-link"></span></a>Examples</h3>
+
+<div class="highlight highlight-r"><pre><span class="c">#install the package from github</span>
+<span class="c">if (!require("devtools")) install.packages("devtools")</span>
+<span class="c">devtools::install_github("survCompetingRisk", "mdbrown")</span>
+
+<span class="c">library(survCompetingRisk)</span>
+</pre></div>
+
+<div class="highlight highlight-r"><pre><span class="c"># simulated data for illustration</span>
+<span class="c">data(crdata)</span>
+</pre></div>
+
+<p>See help files for individual examples <code>?comprisk.ROC</code>, <code>?comprisk.ROC.CI</code>, ...</p>
+
+<p>Direct any questions to mdbrown@fhcrc.org. </p>
+
+<h3>
+<a name="references" class="anchor" href="#references"><span class="octicon octicon-link"></span></a>References</h3>
+
+<p>For more information regarding estimation procedures see the following references:</p>
+
+<p>Zheng Y, Cai T, Jin Y, Feng Z. Evaluating prognostic accuracy of biomarkers under competing risk. <em>Biometrics.</em> 2012 Jun;68(2):388-96.</p>
+
+<p>Zheng Y, Cai T, Feng Z, and Stanford J. Semiparametric Models of Time-dependent Predictive Values of Prognostic Biomarkers. <em>Biometrics.</em> 2010, 66: 50-60.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">SurvCompetingRisk maintained by <a href="https://github.com/mdbrown">mdbrown</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
