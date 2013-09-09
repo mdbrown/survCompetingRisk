@@ -17,24 +17,26 @@ There are five main functions in this package:
 
 
 
-### Tutorial
+### Examples
 
 
 ```r
+#install the package from github
+if (!require("devtools")) install.packages("devtools")
+devtools::install_github("survCompetingRisk", "mdbrown")
 
 library(survCompetingRisk)
 ```
 
-```
-## Loading required package: survival Loading required package: splines
-```
 
 ```r
 # simulated data for illustration
 data(crdata)
 ```
 
-insert tutorial here (coming soon)
+See help files for individual examples `?comprisk.ROC`, `?comprisk.ROC.CI`, ...
+
+Direct any questions to mdbrown@fhcrc.org. 
 
 ### References
 For more information regarding estimation procedures see the following references:
