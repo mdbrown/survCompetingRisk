@@ -34,16 +34,7 @@ library(survCompetingRisk)
 data(crdata)
 ```
 
-
-You can also embed plots, for example:
-
-
-```r
-plot(cars)
-```
-
-![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2.png) 
-
+insert tutorial here (coming soon)
 
 ### References
 For more information regarding estimation procedures see the following references:
