@@ -1,0 +1,11 @@
+Package: survCompetingRisk
+Type: Package
+Title: Evaluating Prognostic Markers under Competing Risk
+Version: 1.1
+Date: 2012-06-22
+Author: Marshall Brown and Yingye Zheng
+Maintainer: Marshall Brown <mdbrown@fhcrc.org>
+Depends: survival
+Description: This package aims to help to evaluate the prognostic accuracy of a marker with multiple competing risk events.Functions to calculate the AUC, ROC, PPV, and NPV are provided. A discrete covariate Z, if available, can be included. 
+License: GPL-2
+URL: https://github.com/mdbrown/survRpackages

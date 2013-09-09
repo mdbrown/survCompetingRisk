@@ -1,0 +1,56 @@
+
+### function for calculating ROC curves from cif and Y, for each cutoff and AUC 
+EstROC.all.cr.type2.FUN = function(data) ## type 2: case is status1; status2; controls are the rest; ## data: Y,Z,cif.1,cif.2
+{ 
+
+   Z=data[,2]; z=sort(unique(Z)); nzz=length(z)
+   AUC.z.1 =AUC.z.2 = NULL; TPR.cz.1=TPR.cz.2=FPR.cz=PPV.cz.1=PPV.cz.2=NPV.cz=cutoff=NULL; nz=NULL; 
+   nz.unique = NULL
+          
+   for (i in 1:nzz) {
+      data.z = data[data[,2]==z[i],]; nrow = dim(data.z)[1] # take only subset of z
+      cutoff.z = data.z[,1]
+      Thec = sort(unique(cutoff.z))
+      TPR.cz.temp.1 = TPR.cz.temp.2=FPR.cz.temp = PPV.cz.temp.1=PPV.cz.temp.2 = NPV.cz.temp = Ft01.Syc.z=  Ft02.Syc.z=St0.Syc.z= St0.Fyc.z=NULL
+      ncz = length(Thec)
+                  
+      for (i in c(1:ncz)) {
+                    
+         ge.c = cutoff.z>=Thec[i]
+         Ft01.Syc.z[i] = sum(data.z[ge.c,3])  # P(T<t0,Y>=c, Z=z,status1==1) at each values of Y and fixed z type 1
+         Ft02.Syc.z[i] = sum(data.z[ge.c,4])  # P(T<t0,Y>=c, Z=z,status1==1) at each values of Y and fixed z, type2
+         St0.Syc.z[i] = sum(1-data.z[ge.c,3]-data.z[ge.c,4]) # P(T>t0,Y>=c,Z=z)
+     
+         TPR.cz.temp.1[i] = Ft01.Syc.z[i]  
+         TPR.cz.temp.2[i] = Ft02.Syc.z[i]
+         FPR.cz.temp[i] = St0.Syc.z[i]
+         ngec = sum(ge.c)
+         PPV.cz.temp.1[i]= Ft01.Syc.z[i]/ngec
+         PPV.cz.temp.2[i] = Ft02.Syc.z[i]/ngec
+         St0.Fyc.z[i] = sum(1-data.z[!ge.c,3]-data.z[!ge.c,4])
+         NPV.cz.temp[i] = St0.Fyc.z[i]/sum(!ge.c)
+      }
+      Ft01.z = max(Ft01.Syc.z)     # P(T<t0,1)
+      Ft02.z = max(Ft02.Syc.z)     # P(T<t0,2)
+      St0.z = max(St0.Syc.z)     # P(T>t0)
+                
+      TPR.cz.1 = c(TPR.cz.1,TPR.cz.temp.1/Ft01.z)
+      TPR.cz.2= c(TPR.cz.2,TPR.cz.temp.2/Ft02.z)
+      FPR.cz = c(FPR.cz,FPR.cz.temp/St0.z)
+      PPV.cz.1= c(PPV.cz.1,PPV.cz.temp.1)
+      PPV.cz.2= c(PPV.cz.2,PPV.cz.temp.2)
+      NPV.cz = c(NPV.cz,NPV.cz.temp)
+      AUC.z.1 = c(AUC.z.1,sum(TPR.cz.temp.1*(FPR.cz.temp-c(FPR.cz.temp[-1],1))))
+      AUC.z.2 = c(AUC.z.2,sum(TPR.cz.temp.2*(FPR.cz.temp-c(FPR.cz.temp[-1],1))))
+      cutoff = c(cutoff,Thec)
+      nz = c(nz, nrow)
+      nz.unique = c(nz.unique, length(Thec))
+   }
+  NPV.cz[is.na(NPV.cz)] <- 0
+  if(length(cutoff) != length(FPR.cz) ) browser()
+  list("AUC.1"=AUC.z.1, "AUC.2"=AUC.z.2, 
+       'ALL1'=data.frame("cutoff"=cutoff,"FPR"=FPR.cz,"TPR"=TPR.cz.1,"NPV"=NPV.cz,"PPV"=PPV.cz.1),
+       'ALL2'=data.frame("cutoff"=cutoff,"FPR"=FPR.cz,"TPR"=TPR.cz.2,"NPV"=NPV.cz,"PPV"=PPV.cz.2),
+       'nz'=nz, 
+        'nz.unique' = nz.unique)  
+}

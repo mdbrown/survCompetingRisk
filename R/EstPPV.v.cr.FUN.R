@@ -1,0 +1,26 @@
+EstPPV.v.cr.FUN <-
+function(accuracy.out,nz,uu0,type){
+   
+   nz <- c(0,cumsum(nz))
+   summary <- NULL
+
+   for (i in 1:(length(nz)-1)) {
+
+      junk   <- accuracy.out[(nz[i]+1):(nz[i+1]),]
+      njunk  <- dim(junk)[1]
+      junk$v <- rank(junk$cutoff)/njunk
+ 
+      ind0 <- match(type, c("cutoff","FPR","TPR","NPV","PPV","v")) 
+      uuk  <- junk[,ind0] 
+      junk <- junk[order(uuk),]
+ 
+      uuk <- sort(uuk) 
+
+      if(ind0==2){ tmpind <- sum.I(uu0, ">=", uuk)} else{ tmpind <- sum.I(uu0, ">", uuk) }
+    
+      summary=rbind(summary,junk[tmpind,])
+    
+   }
+     
+   summary
+}
