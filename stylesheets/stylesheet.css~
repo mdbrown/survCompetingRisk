@@ -262,16 +262,16 @@ img {
 Full-Width Styles
 *******************************************************************************/
 .navbar-inverse .navbar-inner {
-  background-color: none;
-  background-image: none;
-  border-color: none;
+  background-color: #0090ff;
+  background-image: #0090ff;
+  border-color: #0090ff;
   border-radius:0; 
 }
 .navbar-inverse .btn-navbar {
-background-image: none;
+background-image: #0090ff;
 }
 .navbar-inverse .navbar-inner {
-  background: none;
+  background: #0090ff;
 }
 
 .outer {
