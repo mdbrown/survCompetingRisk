@@ -14,21 +14,21 @@ EstROC.all.cr.type2.FUN = function(data) ## type 2: case is status1; status2; co
       TPR.cz.temp.1 = TPR.cz.temp.2=FPR.cz.temp = PPV.cz.temp.1=PPV.cz.temp.2 = NPV.cz.temp = Ft01.Syc.z=  Ft02.Syc.z=St0.Syc.z= St0.Fyc.z=NULL
       ncz = length(Thec)
                   
-      for (i in c(1:ncz)) {
+      for (j in c(1:ncz)) {
                     
-         ge.c = cutoff.z>=Thec[i]
-         Ft01.Syc.z[i] = sum(data.z[ge.c,3])  # P(T<t0,Y>=c, Z=z,status1==1) at each values of Y and fixed z type 1
-         Ft02.Syc.z[i] = sum(data.z[ge.c,4])  # P(T<t0,Y>=c, Z=z,status1==1) at each values of Y and fixed z, type2
-         St0.Syc.z[i] = sum(1-data.z[ge.c,3]-data.z[ge.c,4]) # P(T>t0,Y>=c,Z=z)
+         ge.c = cutoff.z>=Thec[j]
+         Ft01.Syc.z[j] = sum(data.z[ge.c,3])  # P(T<t0,Y>=c, Z=z,status1==1) at each values of Y and fixed z type 1
+         Ft02.Syc.z[j] = sum(data.z[ge.c,4])  # P(T<t0,Y>=c, Z=z,status1==1) at each values of Y and fixed z, type2
+         St0.Syc.z[j] = sum(1-data.z[ge.c,3]-data.z[ge.c,4]) # P(T>t0,Y>=c,Z=z)
      
-         TPR.cz.temp.1[i] = Ft01.Syc.z[i]  
-         TPR.cz.temp.2[i] = Ft02.Syc.z[i]
-         FPR.cz.temp[i] = St0.Syc.z[i]
+         TPR.cz.temp.1[j] = Ft01.Syc.z[j]  
+         TPR.cz.temp.2[j] = Ft02.Syc.z[j]
+         FPR.cz.temp[j] = St0.Syc.z[j]
          ngec = sum(ge.c)
-         PPV.cz.temp.1[i]= Ft01.Syc.z[i]/ngec
-         PPV.cz.temp.2[i] = Ft02.Syc.z[i]/ngec
-         St0.Fyc.z[i] = sum(1-data.z[!ge.c,3]-data.z[!ge.c,4])
-         NPV.cz.temp[i] = St0.Fyc.z[i]/sum(!ge.c)
+         PPV.cz.temp.1[j]= Ft01.Syc.z[j]/ngec
+         PPV.cz.temp.2[j] = Ft02.Syc.z[j]/ngec
+         St0.Fyc.z[j] = sum(1-data.z[!ge.c,3]-data.z[!ge.c,4])
+         NPV.cz.temp[j] = St0.Fyc.z[j]/sum(!ge.c)
       }
       Ft01.z = max(Ft01.Syc.z)     # P(T<t0,1)
       Ft02.z = max(Ft02.Syc.z)     # P(T<t0,2)
@@ -40,8 +40,8 @@ EstROC.all.cr.type2.FUN = function(data) ## type 2: case is status1; status2; co
       PPV.cz.1= c(PPV.cz.1,PPV.cz.temp.1)
       PPV.cz.2= c(PPV.cz.2,PPV.cz.temp.2)
       NPV.cz = c(NPV.cz,NPV.cz.temp)
-      AUC.z.1 = c(AUC.z.1,sum(TPR.cz.temp.1*(FPR.cz.temp-c(FPR.cz.temp[-1],1))))
-      AUC.z.2 = c(AUC.z.2,sum(TPR.cz.temp.2*(FPR.cz.temp-c(FPR.cz.temp[-1],1))))
+      AUC.z.1 = c(AUC.z.1, sum(TPR.cz.1*(FPR.cz-c(FPR.cz[-1],1))))
+      AUC.z.2 = c(AUC.z.2,sum(TPR.cz.2*(FPR.cz-c(FPR.cz[-1],1))))
       cutoff = c(cutoff,Thec)
       nz = c(nz, nrow)
       nz.unique = c(nz.unique, length(Thec))

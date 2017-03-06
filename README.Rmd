@@ -31,7 +31,55 @@ head(crdata)
 
 ```
 
+```{r}
 
+##ROC curve 
+
+#Set type = 1 if case is defined by the event of interest, and controls are all the rest. Set type = 2 if case is defined by stratifying on event type, and controls are those who have not experienced any events.
+
+myROC.type1 <- comprisk.ROC( times = crdata$times,
+                             status1 = crdata$status1, 
+                             status2 = crdata$status2, 
+                             x = crdata$x, 
+                             Z = crdata$Z, 
+                             predict.time = 10, 
+                             type = 1)
+
+myROC.type1
+
+#plot
+tmp <- myROC.type1$ROC
+
+plot(tmp$FPR[tmp$Z==0], tmp$TPR[tmp$Z==0], type="l",lwd=2, main="Type 1", xlab="FPR", ylab="TPR")
+lines(tmp$FPR[tmp$Z==1], tmp$TPR[tmp$Z==1], lty=2, lwd=2)
+legend(x="bottomright", c("Z = 0", "Z = 1"), lty=c(1,2))
+lines(c(0, 1), c(0,1), col="lightgrey")
+
+
+## type 2 
+
+myROC.type2 <- comprisk.ROC( times = crdata$times,
+                             status1 = crdata$status1, 
+                             status2 = crdata$status2, 
+                             x = crdata$x, 
+                             Z = crdata$Z, 
+                             predict.time = 10, 
+                             type = 2)
+
+myROC.type2
+
+
+comprisk.AUC.CI( times = crdata$times,
+              status1 = crdata$status1, 
+              status2 = crdata$status2, 
+              x = crdata$x, 
+              Z = crdata$Z, 
+              predict.time = 10, 
+              type = 1, 
+              bootstraps = 25) #set to 500-1000 in practice!
+
+
+```
 
 
 ### References
